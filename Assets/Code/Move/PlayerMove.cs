@@ -2,17 +2,16 @@
 using DG.Tweening.Core;
 using DG.Tweening.Plugins.Options;
 using UnityEngine;
+using Zenject;
 
-[RequireComponent(typeof(IPlayerInput))]
 public class PlayerMove : MonoBehaviour
 {
     [SerializeField] private Vector2 horizontalBounds = new(-1.5f, 1.5f);
     [SerializeField] private float speed = 5.0f;
+    [Inject] private IPlayerInput _playerInput;
 
-    private IPlayerInput _playerInput;
     private TweenerCore<Vector3, Vector3, VectorOptions> _tween;
 
-    private void Awake() => _playerInput = GetComponent<IPlayerInput>();
     private void OnEnable() => _playerInput.OnPlayerMove += MovePlayer;
     private void OnDisable() => _playerInput.OnPlayerMove -= MovePlayer;
     private void Update() => transform.position += new Vector3(0, 0, speed * Time.deltaTime);

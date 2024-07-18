@@ -1,26 +1,27 @@
 using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Zenject;
 
-public class PlayerMobileInput : MonoBehaviour, IPlayerInput
+public class PlayerMobileInput : IPlayerInput, IInitializable, IDisposable
 {
-    [SerializeField] private float minimumSwipeMagnitude = 5.0f;
+    private readonly PlayerInputActions _playerInput = new();
+    private readonly float _minSwipeMagnitude;
 
-    private PlayerInputActions _playerInput;
     private Vector2 _swipeDirection;
 
     public event Action<Vector2> OnPlayerMove = _ => { };
 
-    private void Awake() => _playerInput = new PlayerInputActions();
+    public PlayerMobileInput(float minSwipeMagnitude) => _minSwipeMagnitude = minSwipeMagnitude;
 
-    private void OnEnable()
+    public void Initialize()
     {
         _playerInput.Enable();
         _playerInput.Player.Swipe.performed += Swipe;
         _playerInput.Player.Touch.canceled += Touch;
     }
 
-    private void OnDisable()
+    public void Dispose()
     {
         _playerInput.Player.Touch.canceled -= Touch;
         _playerInput.Player.Swipe.performed -= Swipe;
@@ -34,7 +35,7 @@ public class PlayerMobileInput : MonoBehaviour, IPlayerInput
 
     private void Touch(InputAction.CallbackContext context)
     {
-        if (Mathf.Abs(_swipeDirection.magnitude) < minimumSwipeMagnitude) return;
+        if (Mathf.Abs(_swipeDirection.magnitude) < _minSwipeMagnitude) return;
 
         var moveDirection = Vector2.zero;
 
@@ -42,14 +43,14 @@ public class PlayerMobileInput : MonoBehaviour, IPlayerInput
         {
             > 0 => 1,
             < 0 => -1,
-            _ => throw new ArgumentOutOfRangeException(nameof(_swipeDirection), "Swipe magnitude by X axis is zero")
+            _ => 0
         };
 
         moveDirection.y = _swipeDirection.y switch
         {
             > 0 => 1,
             < 0 => -1,
-            _ => throw new ArgumentOutOfRangeException(nameof(_swipeDirection), "Swipe magnitude by Y axis is zero")
+            _ => 0
         };
 
         OnPlayerMove(moveDirection);
