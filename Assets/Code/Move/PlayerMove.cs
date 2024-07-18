@@ -19,10 +19,14 @@ public class PlayerMove : MonoBehaviour
 
     private void MovePlayer(Vector2 moveDirection)
     {
+        _tween?.Kill(complete: true);
+
         var newPositionX = transform.position.x + moveDirection.x;
         if (newPositionX < horizontalBounds.x || newPositionX > horizontalBounds.y) return;
 
-        _tween?.Kill();
-        _tween = transform.DOMoveX(newPositionX, 0.5f).SetEase(Ease.OutBack).Play();
+        _tween = transform.DOMoveX(newPositionX, 0.5f)
+            .OnComplete(() => transform.position = new Vector3(newPositionX, 0, transform.position.z))
+            .SetEase(Ease.OutBack)
+            .Play();
     }
 }
