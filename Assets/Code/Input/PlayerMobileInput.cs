@@ -1,27 +1,26 @@
 using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using Zenject;
 
-public class PlayerMobileInput : IPlayerInput, IInitializable, IDisposable
+public class PlayerMobileInput : MonoBehaviour, IPlayerInput
 {
-    private readonly PlayerInputActions _playerInput = new();
-    private readonly float _minSwipeMagnitude;
+    [SerializeField] private float minimumSwipeMagnitude = 5.0f;
 
+    private PlayerInputActions _playerInput;
     private Vector2 _swipeDirection;
 
     public event Action<Vector2> OnPlayerMove = _ => { };
 
-    public PlayerMobileInput(float minSwipeMagnitude) => _minSwipeMagnitude = minSwipeMagnitude;
+    private void Awake() => _playerInput = new PlayerInputActions();
 
-    public void Initialize()
+    private void OnEnable()
     {
         _playerInput.Enable();
         _playerInput.Player.Swipe.performed += Swipe;
         _playerInput.Player.Touch.canceled += Touch;
     }
 
-    public void Dispose()
+    private void OnDisable()
     {
         _playerInput.Player.Touch.canceled -= Touch;
         _playerInput.Player.Swipe.performed -= Swipe;
@@ -35,7 +34,7 @@ public class PlayerMobileInput : IPlayerInput, IInitializable, IDisposable
 
     private void Touch(InputAction.CallbackContext context)
     {
-        if (Mathf.Abs(_swipeDirection.magnitude) < _minSwipeMagnitude) return;
+        if (Mathf.Abs(_swipeDirection.magnitude) < minimumSwipeMagnitude) return;
 
         var moveDirection = Vector2.zero;
 
