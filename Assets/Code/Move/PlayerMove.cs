@@ -1,7 +1,4 @@
-﻿using System;
-using DG.Tweening;
-using DG.Tweening.Core;
-using DG.Tweening.Plugins.Options;
+﻿using DG.Tweening;
 using UnityEngine;
 
 [RequireComponent(typeof(IPlayerInput))]
@@ -11,23 +8,23 @@ public class PlayerMove : MonoBehaviour
     [SerializeField] private float speed = 5.0f;
 
     private IPlayerInput _playerInput;
-    private TweenerCore<Vector3, Vector3, VectorOptions> _tween;
+    private Tween _tween;
 
     private void Awake() => _playerInput = GetComponent<IPlayerInput>();
-    private void OnEnable() => _playerInput.OnPlayerMove += MovePlayer;
-    private void OnDisable() => _playerInput.OnPlayerMove -= MovePlayer;
+    private void OnEnable() => _playerInput.OnSwipe += MovePlayer;
+    private void OnDisable() => _playerInput.OnSwipe -= MovePlayer;
     private void Update() => transform.position += new Vector3(0, 0, speed * Time.deltaTime);
 
-    private void MovePlayer(Vector2 moveDirection)
+    private void MovePlayer(Vector2 direction)
     {
         _tween?.Kill(complete: true);
 
-        var newPositionX = transform.position.x + moveDirection.x;
-        if (newPositionX < horizontalBounds.x || newPositionX > horizontalBounds.y) return;
+        var xPosition = transform.position.x + direction.x;
+        if (xPosition < horizontalBounds.x || xPosition > horizontalBounds.y) return;
 
-        _tween = transform.DOMoveX(newPositionX, 0.5f)
-            .OnComplete(() => transform.position = new Vector3(newPositionX, 0, transform.position.z))
-            .SetEase(Ease.OutBack)
+        _tween = transform.DOMoveX(xPosition, 0.5f)
+            .OnComplete(() => transform.position = new Vector3(xPosition, 0, transform.position.z))
+            .SetEase(Ease.OutExpo)
             .Play();
     }
 }

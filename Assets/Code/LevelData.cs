@@ -14,9 +14,6 @@ public class LevelData : ScriptableObject
 [System.Serializable]
 public class ColorPurposeData
 {
-    [SerializeField] private Material cubeMaterial;
-    [SerializeField] private int amount;
-
-    public Material CubeMaterial => cubeMaterial;
-    public int Amount => amount;
+    [field: SerializeField] public Color Color { get; private set; }
+    [field: SerializeField] public int Amount { get; private set; }
 }

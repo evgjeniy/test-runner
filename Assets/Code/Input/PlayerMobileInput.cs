@@ -1,57 +1,55 @@
 using System;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class PlayerMobileInput : MonoBehaviour, IPlayerInput
 {
-    [SerializeField] private float minimumSwipeMagnitude = 5.0f;
+    [SerializeField, Range(0, 1)] private float swipeThresholdScreenPercent = 0.3f;
 
-    private PlayerInputActions _playerInput;
     private Vector2 _swipeDirection;
+    private Vector2 _startTouchPosition;
+    private Vector2 _endTouchPosition;
 
-    public event Action<Vector2> OnPlayerMove = _ => { };
+    public event Action<Vector2> OnSwipe = _ => { };
 
-    private void Awake() => _playerInput = new PlayerInputActions();
+    private void Update() => Swipe();
 
-    private void OnEnable()
+    private void Swipe()
     {
-        _playerInput.Enable();
-        _playerInput.Player.Swipe.performed += Swipe;
-        _playerInput.Player.Touch.canceled += Touch;
-    }
+        if (Input.touchCount <= 0) return;
+        var touch = Input.GetTouch(0);
 
-    private void OnDisable()
-    {
-        _playerInput.Player.Touch.canceled -= Touch;
-        _playerInput.Player.Swipe.performed -= Swipe;
-        _playerInput.Disable();
-    }
-
-    private void Swipe(InputAction.CallbackContext context)
-    {
-        _swipeDirection = context.ReadValue<Vector2>();
-    }
-
-    private void Touch(InputAction.CallbackContext context)
-    {
-        if (Mathf.Abs(_swipeDirection.magnitude) < minimumSwipeMagnitude) return;
-
-        var moveDirection = Vector2.zero;
-
-        moveDirection.x = _swipeDirection.x switch
+        if (touch.phase == TouchPhase.Began)
         {
-            > 0 => 1,
-            < 0 => -1,
-            _ => 0
-        };
-
-        moveDirection.y = _swipeDirection.y switch
+            _startTouchPosition = touch.position;
+        }
+        else if (touch.phase == TouchPhase.Ended)
         {
-            > 0 => 1,
-            < 0 => -1,
-            _ => 0
-        };
+            _endTouchPosition = touch.position;
 
-        OnPlayerMove(moveDirection);
+            var swipeDirection = _endTouchPosition - _startTouchPosition;
+            var threshold = swipeThresholdScreenPercent * Screen.currentResolution.width;
+            
+            if (swipeDirection.magnitude < threshold) return;
+            if (Mathf.Abs(swipeDirection.x) > Mathf.Abs(swipeDirection.y))
+            {
+                swipeDirection.x = swipeDirection.x switch
+                {
+                    > 0 => 1,
+                    < 0 => -1,
+                    _ => 0
+                };
+            }
+            else
+            {
+                swipeDirection.y = swipeDirection.y switch
+                {
+                    > 0 => 1,
+                    < 0 => -1,
+                    _ => 0
+                };
+            }
+
+            OnSwipe(swipeDirection);
+        }
     }
 }

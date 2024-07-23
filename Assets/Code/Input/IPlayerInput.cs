@@ -3,5 +3,5 @@ using UnityEngine;
 
 public interface IPlayerInput
 {
-    public event Action<Vector2> OnPlayerMove;
+    public event Action<Vector2> OnSwipe;
 }
