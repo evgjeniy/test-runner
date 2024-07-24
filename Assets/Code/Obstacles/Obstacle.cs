@@ -5,9 +5,9 @@ public class Obstacle : MonoBehaviour
 {
     private void OnTriggerEnter(Collider other)
     {
-        if (!other.TryGetComponent(out IHealth health))
+        if (!other.TryGetComponent(out Player player))
             return;
 
-        health.TakeDamage();
+        player.Health.TakeDamage();
     }
 }

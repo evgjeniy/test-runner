@@ -5,9 +5,9 @@ public class Cube : MonoBehaviour
 {
     private void OnTriggerEnter(Collider other)
     {
-        if (!other.TryGetComponent(out IInventory inventory))
+        if (!other.TryGetComponent(out Player player))
             return;
 
-        inventory.Collect(this);
+        player.Inventory.Collect(this);
     }
 }
