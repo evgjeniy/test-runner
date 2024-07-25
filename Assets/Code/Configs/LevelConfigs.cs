@@ -1,18 +1,22 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Config/LevelData", fileName = "LevelData")]
-public class LevelConfig : ScriptableObject
+[CreateAssetMenu(menuName = "Config/Levels", fileName = "Levels")]
+public class LevelConfigs : ScriptableObject
 {
-    [SerializeField] private int id;
+    [SerializeField] private List<LevelConfig> configs;
+
+    public List<LevelConfig> Configs => configs;
+}
+
+[System.Serializable]
+public class LevelConfig
+{
     [SerializeField] private int maxStackAmount;
     [SerializeField] private ColorPurposeData[] colorsToComplete;
 
-    public int ID => id;
     public int MaxStackAmount => maxStackAmount;
     public IReadOnlyCollection<ColorPurposeData> ColorsToComplete => colorsToComplete;
-
-    public override string ToString() => $"{base.ToString()}, {nameof(id)}: {id}, {nameof(maxStackAmount)}: {maxStackAmount}, {nameof(colorsToComplete)}: {colorsToComplete}";
 }
 
 [System.Serializable]

@@ -12,6 +12,10 @@ public class Bootstrapper : MonoBehaviour, ICoroutineRunner
 
         DontDestroyOnLoad(this);
     }
+
+    private void Update() => _gameStateMachine.Update();
+    private void OnDestroy() => _gameStateMachine.Enter<CleanupState>();
+    private void OnApplicationQuit() => _gameStateMachine.Enter<CleanupState>();
 }
 
 public interface ICoroutineRunner : IService

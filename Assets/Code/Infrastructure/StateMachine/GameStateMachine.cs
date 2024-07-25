@@ -10,8 +10,25 @@ public class GameStateMachine : IGameStateMachine
     {
         _states = new Dictionary<Type, IExitState>
         {
-            [typeof(BootstrapState)] = new BootstrapState(this, coroutineRunner, services),
-            [typeof(LoadLevelState)] = new LoadLevelState(this),
+            [typeof(BootstrapState)] = new BootstrapState
+            (
+                this,
+                coroutineRunner,
+                services
+            ),
+            [typeof(MainMenuState)] = new MainMenuState
+            (
+                this,
+                configProvider: services.Resolve<IConfigProvider>()
+            ),
+            [typeof(GamePlayState)] = new GamePlayState
+            (
+                this,
+                inputService: services.Resolve<IInputService>(),
+                configProvider: services.Resolve<IConfigProvider>()
+            ),
+            [typeof(GamePauseState)] = new GamePauseState(),
+            [typeof(CleanupState)] = new CleanupState()
         };
     }
 
@@ -24,6 +41,8 @@ public class GameStateMachine : IGameStateMachine
     {
         ChangeState<TState>().Enter(payload);
     }
+
+    public void Update() => _activeState.Update();
 
     private TState ChangeState<TState>() where TState : class, IExitState
     {

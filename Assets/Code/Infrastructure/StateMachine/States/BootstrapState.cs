@@ -18,7 +18,7 @@ public class BootstrapState : IState
     private void RegisterServices()
     {
         _services.Register<ILogService>(new DebugLogService());
-        
+
         _services.Register<IGameStateMachine>(_gameStateMachine);
         _services.Register<ICoroutineRunner>(_coroutineRunner);
         _services.Register<ISceneLoader>(new SceneLoader(_coroutineRunner));
@@ -31,12 +31,13 @@ public class BootstrapState : IState
     {
         Application.targetFrameRate = 300;
         QualitySettings.vSyncCount = 0;
-        
-        _services.Resolve<ISceneLoader>().Load("Game", onLoaded: SwitchState);
+
+        var sceneLoader = _services.Resolve<ISceneLoader>();
+        sceneLoader.Load(Const.Scenes.Game.Index, onLoaded: SwitchState);
     }
 
     private void SwitchState()
     {
-        _gameStateMachine.Enter<LoadLevelState, LevelConfig>(_services.Resolve<IConfigProvider>().GetLevelConfig(1));
+        _gameStateMachine.Enter<MainMenuState>();
     }
 }
