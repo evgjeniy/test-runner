@@ -1,14 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 
-public class GameStateMachine : IGameStateMachine
+public class GameStateMachine : StateMachine
 {
-    private readonly Dictionary<Type, IExitState> _states;
-    private IExitState _activeState;
-
-    public GameStateMachine(Services services, ICoroutineRunner coroutineRunner)
+    public GameStateMachine(ICoroutineRunner coroutineRunner, Services services)
     {
-        _states = new Dictionary<Type, IExitState>
+        States = new Dictionary<Type, IExitState>
         {
             [typeof(BootstrapState)] = new BootstrapState
             (
@@ -21,36 +18,8 @@ public class GameStateMachine : IGameStateMachine
                 this,
                 configProvider: services.Resolve<IConfigProvider>()
             ),
-            [typeof(GamePlayState)] = new GamePlayState
-            (
-                this,
-                inputService: services.Resolve<IInputService>(),
-                configProvider: services.Resolve<IConfigProvider>()
-            ),
-            [typeof(GamePauseState)] = new GamePauseState(),
-            [typeof(CleanupState)] = new CleanupState()
+            [typeof(GameLoopState)] = new GameLoopState(this, services),
+            [typeof(GameExitState)] = new GameExitState()
         };
-    }
-
-    public void Enter<TState>() where TState : class, IState
-    {
-        ChangeState<TState>().Enter();
-    }
-
-    public void Enter<TState, TPayload>(TPayload payload) where TState : class, IPayloadState<TPayload>
-    {
-        ChangeState<TState>().Enter(payload);
-    }
-
-    public void Update() => _activeState.Update();
-
-    private TState ChangeState<TState>() where TState : class, IExitState
-    {
-        var state = _states[typeof(TState)] as TState;
-
-        _activeState?.Exit();
-        _activeState = state;
-
-        return state;
     }
 }

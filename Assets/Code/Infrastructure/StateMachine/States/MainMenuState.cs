@@ -14,16 +14,13 @@ public class MainMenuState : IState
 
     public void Enter()
     {
-        var mainMenuConfig = _configProvider.GetWindowConfig(WindowType.MainMenu);
+        var levelConfig = _configProvider.GetLevelConfig(Const.TempLevelIndex); // TODO : load index from saves
 
-        _mainMenu = Object.Instantiate(mainMenuConfig.Prefab as MainMenu);
-        _mainMenu.StartGameButton.onClick.AddListener(StartGame);
-    }
-
-    private void StartGame()
-    {
-        var config = _configProvider.GetLevelConfig(index: 0);
-        _gameStateMachine.Enter<GamePlayState, LevelConfig>(config);
+        _mainMenu = Object.Instantiate(_configProvider.GetWindowPrefab<MainMenu>());
+        _mainMenu.StartGameButton.onClick.AddListener(() =>
+        {
+            _gameStateMachine.Enter<GameLoopState, LevelConfig>(levelConfig);
+        });
     }
 
     public void Exit() => Object.Destroy(_mainMenu.gameObject);

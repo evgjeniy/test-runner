@@ -1,5 +1,7 @@
 ﻿public static class Const
 {
+    public const int TempLevelIndex = 0;
+    
     public static class Scenes
     {
         public static class Boot
