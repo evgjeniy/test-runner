@@ -16,7 +16,8 @@ public class GameStateMachine : StateMachine
             [typeof(MainMenuState)] = new MainMenuState
             (
                 this,
-                configProvider: services.Resolve<IConfigProvider>()
+                configProvider: services.Resolve<IConfigProvider>(),
+                inputService: services.Resolve<IInputService>()
             ),
             [typeof(GameLoopState)] = new GameLoopState(this, services),
             [typeof(GameExitState)] = new GameExitState()

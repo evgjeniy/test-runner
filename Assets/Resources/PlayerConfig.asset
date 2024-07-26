@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ee5712ddb5843e3b4e6eda00da1abe2, type: 3}
   m_Name: PlayerConfig
   m_EditorClassIdentifier: 
+  playerPrefab: {fileID: 3848909414765836700, guid: 2eac46edd9e699c4aaf4152c9cbd8521,
+    type: 3}
   swipeThresholdScreenPercent: 0.2
   horizontalBounds: {x: -1.5, y: 1.5}
   speed: 5

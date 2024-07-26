@@ -24,4 +24,5 @@ public class ColorPurposeData
 {
     [field: SerializeField] public Color Color { get; private set; }
     [field: SerializeField] public int Amount { get; private set; }
+    [field: SerializeField] public int Collect { get; private set; }
 }
