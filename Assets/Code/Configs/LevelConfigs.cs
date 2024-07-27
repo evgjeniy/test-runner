@@ -13,14 +13,14 @@ public class LevelConfigs : ScriptableObject
 public class LevelConfig
 {
     [SerializeField] private int maxStackAmount;
-    [SerializeField] private ColorPurposeData[] colorsToComplete;
+    [SerializeField] private ColorTaskData[] colorsToComplete;
 
     public int MaxStackAmount => maxStackAmount;
-    public IReadOnlyCollection<ColorPurposeData> ColorsToComplete => colorsToComplete;
+    public IReadOnlyCollection<ColorTaskData> ColorsToComplete => colorsToComplete;
 }
 
 [System.Serializable]
-public class ColorPurposeData
+public class ColorTaskData
 {
     [field: SerializeField] public Color Color { get; private set; }
     [field: SerializeField] public int Amount { get; private set; }

@@ -8,10 +8,10 @@ public class ColorTask : MonoBehaviour
     [SerializeField] private TMP_Text requiredCubesAmount;
     [SerializeField] private TMP_Text cubesToCollect;
 
-    public void Construct(ColorPurposeData colorPurpose)
+    public void Construct(ColorTaskData colorTask)
     {
-        colorImage.color = colorPurpose.Color;
-        requiredCubesAmount.text = $"{colorPurpose.Amount}";
-        cubesToCollect.text = $"x{colorPurpose.Collect}";
+        colorImage.color = colorTask.Color;
+        requiredCubesAmount.text = $"{colorTask.Amount}";
+        cubesToCollect.text = $"x{colorTask.Collect}";
     }
 }
