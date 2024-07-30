@@ -3,28 +3,22 @@ using System.Collections.Generic;
 
 public class GameLoopStateMachine : StateMachine
 {
-    public GameLoopStateMachine(GameLoopState gameLoop, GameStateMachine gameStateMachine, Services services)
+    public GameLoopStateMachine(GameStateMachine gameStateMachine, Services services)
     {
         States = new Dictionary<Type, IExitState>
         {
             [typeof(GamePlayState)] = new GamePlayState
             (
-                gameLoop: gameLoop,
+                gameLoop: this,
                 inputService: services.Resolve<IInputService>()
             ),
             [typeof(GamePauseState)] = new GamePauseState
             (
-                gameLoop: gameLoop,
+                gameLoop: this,
                 configProvider: services.Resolve<IConfigProvider>()
             ),
-            [typeof(GameWinState)] = new GameWinState
-            (
-                gameLoop: gameLoop
-            ),
-            [typeof(GameLoseState)] = new GameLoseState
-            (
-                gameLoop: gameLoop
-            ),
+            [typeof(GameWinState)] = new GameWinState(gameLoop: this),
+            [typeof(GameLoseState)] = new GameLoseState(gameLoop: this),
             [typeof(GameLoopExitState)] = new GameLoopExitState(gameStateMachine)
         };
     }

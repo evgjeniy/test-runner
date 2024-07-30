@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 public class GameHud : Window
@@ -17,18 +18,17 @@ public class GameHud : Window
     [SerializeField] private VerticalLayoutGroup stackCubesRoot;
     [SerializeField] private GameObject linePrefab;
 
-    public Button Pause => pauseButton;
-
-    public void Construct(LevelConfig config)
+    public GameHud Construct(LevelConfig config, UnityAction onPause)
     {
         foreach (var colorPurposeData in config.ColorsToComplete)
-        {
-            var colorTaskInstance = Instantiate(colorTaskPrefab, colorTasksRoot);
-            colorTaskInstance.Construct(colorPurposeData);
-        }
+            Instantiate(colorTaskPrefab, colorTasksRoot).Construct(colorPurposeData);
 
         CreateStackSlider(config);
+        pauseButton.onClick.AddListener(onPause);
+        return this;
     }
+
+    public void OnSliderValueChanged(float value) => currentAmountText.text = $"{value}";
 
     private void CreateStackSlider(LevelConfig config)
     {
@@ -46,6 +46,4 @@ public class GameHud : Window
 
         maxAmountText.text = $"MAX\n{config.MaxStackAmount}";
     }
-
-    public void OnSliderValueChanged(float value) => currentAmountText.text = $"{value}";
 }

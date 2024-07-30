@@ -1,8 +1,8 @@
 public class GameLoseState : IState
 {
-    private readonly GameLoopState _gameLoop;
+    private readonly GameLoopStateMachine _gameLoop;
 
-    public GameLoseState(GameLoopState gameLoop)
+    public GameLoseState(GameLoopStateMachine gameLoop)
     {
         _gameLoop = gameLoop;
     }

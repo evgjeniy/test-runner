@@ -30,12 +30,14 @@ public class MainMenuState : IState
         var levelNumber = Const.TempLevelIndex;
         var levelConfig = _configProvider.GetLevelConfig(levelNumber);
 
-        _mainMenu = Object.Instantiate(_configProvider.GetWindowPrefab<MainMenu>());
-        _mainMenu.SetLevelText(levelNumber + 1);
-        _mainMenu.StartGameButton.onClick.AddListener(() =>
-        {
-            player.Initialize(levelConfig, _inputService);
-            _gameStateMachine.Enter<GameLoopState, LevelConfig>(levelConfig);
-        });
+        _mainMenu = Object.Instantiate(_configProvider.GetWindowPrefab<MainMenu>()).Construct
+        (
+            currentLevel: levelNumber + 1,
+            onStart: () =>
+            {
+                player.Initialize(levelConfig, _inputService);
+                _gameStateMachine.Enter<GameLoopState, LevelConfig>(levelConfig);
+            }
+        );
     }
 }

@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 public class PauseWindow : Window
@@ -7,7 +8,11 @@ public class PauseWindow : Window
     [SerializeField] private Button continueButton;
     [SerializeField] private Button mainMenuButton;
 
-    public Button Close => closeButton;
-    public Button Continue => continueButton;
-    public Button MainMenu => mainMenuButton;
+    public PauseWindow Construct(UnityAction onClose, UnityAction onMainMenu)
+    {
+        closeButton.onClick.AddListener(onClose);
+        continueButton.onClick.AddListener(onClose);
+        mainMenuButton.onClick.AddListener(onMainMenu);
+        return this;
+    }
 }
