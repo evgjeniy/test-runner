@@ -39,7 +39,7 @@ public class MainMenuState : IState
             onStart: () =>
             {
                 player.Initialize(levelConfig, _inputService);
-                _gameStateMachine.Enter<GameLoopState, LevelConfig>(levelConfig);
+                _gameStateMachine.Enter<GameLoopState, GameLoopState.Payload>(new GameLoopState.Payload(levelConfig, player));
             }
         );
     }

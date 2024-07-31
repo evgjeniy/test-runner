@@ -14,8 +14,6 @@ public class Player : MonoBehaviour
         Move = new PlayerMovement(inputService, playerConfig, transform);
         Inventory = new PlayerInventory(levelConfig, cubesStackRoot);
         Health = new PlayerHealth(Inventory);
-
-        enabled = true;
     }
 
     private void OnEnable() => Move.Enable();

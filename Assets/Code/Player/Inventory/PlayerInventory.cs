@@ -7,7 +7,7 @@ public class PlayerInventory : IInventory
     private readonly Transform _cubeStackRoot;
     private readonly List<Cube> _cubes = new(capacity: 16);
 
-    public int Amount => _cubes.Count;
+    public IReadOnlyList<Cube> Cubes => _cubes;
 
     public PlayerInventory(LevelConfig levelConfig, Transform cubeStackRoot)
     {
@@ -24,6 +24,7 @@ public class PlayerInventory : IInventory
         else
         {
             _cubes.Add(cube);
+            Services.All.Resolve<ILogService>().Log($"Add {cube.Color}", this);
 
             _cubeStackRoot.position += Vector3.up;
             cube.transform.parent = _cubeStackRoot;

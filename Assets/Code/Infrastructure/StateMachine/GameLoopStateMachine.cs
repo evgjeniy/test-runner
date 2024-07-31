@@ -3,6 +3,9 @@ using System.Collections.Generic;
 
 public class GameLoopStateMachine : StateMachine
 {
+    public LevelConfig Config { get; private set; }
+    public Player Player { get; private set; }
+
     public GameLoopStateMachine(GameStateMachine gameStateMachine, Services services)
     {
         States = new Dictionary<Type, IExitState>
@@ -17,9 +20,19 @@ public class GameLoopStateMachine : StateMachine
                 gameLoop: this,
                 configProvider: services.Resolve<IConfigProvider>()
             ),
+            [typeof(GameLoseState)] = new GameLoseState
+            (
+                gameLoop: this,
+                configProvider: services.Resolve<IConfigProvider>()
+            ),
             [typeof(GameWinState)] = new GameWinState(gameLoop: this),
-            [typeof(GameLoseState)] = new GameLoseState(gameLoop: this),
             [typeof(GameLoopExitState)] = new GameLoopExitState(gameStateMachine)
         };
+    }
+
+    public void SetData(LevelConfig config, Player player)
+    {
+        Config = config;
+        Player = player;
     }
 }

@@ -1,6 +1,8 @@
-﻿public interface IInventory
+﻿using System.Collections.Generic;
+
+public interface IInventory
 {
-    int Amount { get; }
+    public IReadOnlyList<Cube> Cubes { get; }
     void Collect(Cube cube);
     void DestroyLast();
 }

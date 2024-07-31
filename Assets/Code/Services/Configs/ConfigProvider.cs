@@ -20,6 +20,8 @@ public class ConfigProvider : IConfigProvider
     }
 
     public PlayerConfig GetPlayerConfig() => _playerConfig;
-    public LevelConfig GetLevelConfig(int index) => _levelConfigs[index];
+    public LevelConfig GetLevelConfig(int index) => _levelConfigs[GetSaveIndex(index)];
     public TWindow GetWindowPrefab<TWindow>() where TWindow : Window => _windowConfigs.GetValueOrDefault(typeof(TWindow)) as TWindow;
+
+    private int GetSaveIndex(int index) => index % _levelConfigs.Count;
 }

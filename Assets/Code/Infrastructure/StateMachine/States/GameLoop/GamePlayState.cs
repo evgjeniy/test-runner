@@ -9,8 +9,7 @@ public class GamePlayState : IState
         _inputService = inputService;
     }
 
-    public void Update()
-    {
-        _inputService.HandleSwipe();
-    }
+    public void Enter() => _gameLoop.Player.enabled = true;
+    public void Exit() => _gameLoop.Player.enabled = false;
+    public void Update() => _inputService.HandleSwipe();
 }

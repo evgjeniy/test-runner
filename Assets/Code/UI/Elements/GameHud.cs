@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
@@ -18,17 +19,26 @@ public class GameHud : Window
     [SerializeField] private VerticalLayoutGroup stackCubesRoot;
     [SerializeField] private GameObject linePrefab;
 
+    private readonly Dictionary<ColorTaskData, ColorTask> _colorTasks = new();
+
     public GameHud Construct(LevelConfig config, UnityAction onPause)
     {
-        foreach (var colorPurposeData in config.ColorsToComplete)
-            Instantiate(colorTaskPrefab, colorTasksRoot).Construct(colorPurposeData);
-
+        CreateColorTasks(config);
         CreateStackSlider(config);
         pauseButton.onClick.AddListener(onPause);
         return this;
     }
 
     public void OnSliderValueChanged(float value) => currentAmountText.text = $"{value}";
+
+    private void CreateColorTasks(LevelConfig config)
+    {
+        foreach (var colorPurposeData in config.ColorsToComplete)
+        {
+            var colorTask = Instantiate(colorTaskPrefab, colorTasksRoot).Construct(colorPurposeData);
+            _colorTasks.TryAdd(colorPurposeData, colorTask);
+        }
+    }
 
     private void CreateStackSlider(LevelConfig config)
     {
