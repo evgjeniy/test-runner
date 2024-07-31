@@ -23,6 +23,9 @@ public class BootstrapState : IState
         _services.Register<ICoroutineRunner>(_coroutineRunner);
         _services.Register<ISceneLoader>(new SceneLoader(_coroutineRunner));
 
+        var serializer = _services.Register<ISerializeService>(new JsonSerializeService());
+        _services.Register<ISaveService>(new CashedSaveService(new PlayerPrefsSaveService(serializer)));
+
         var configProvider = _services.Register<IConfigProvider>(new ConfigProvider());
         _services.Register<IInputService>(new TouchInputService(configProvider));
     }

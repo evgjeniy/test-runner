@@ -2,16 +2,19 @@
 
 public class MainMenuState : IState
 {
+    private const string LevelSaveKey = nameof(LevelSaveKey);
     private readonly GameStateMachine _gameStateMachine;
     private readonly IConfigProvider _configProvider;
     private readonly IInputService _inputService;
+    private readonly ISaveService _saveService;
     private MainMenu _mainMenu;
 
-    public MainMenuState(GameStateMachine gameStateMachine, IConfigProvider configProvider, IInputService inputService)
+    public MainMenuState(GameStateMachine gameStateMachine, IConfigProvider configProvider, IInputService inputService, ISaveService saveService)
     {
         _gameStateMachine = gameStateMachine;
         _configProvider = configProvider;
         _inputService = inputService;
+        _saveService = saveService;
     }
 
     public void Enter()
@@ -27,7 +30,7 @@ public class MainMenuState : IState
 
     private void CreateMainMenu(Player player)
     {
-        var levelNumber = Const.TempLevelIndex;
+        var levelNumber = _saveService.TryGet(LevelSaveKey, out int level) ? level : 0;
         var levelConfig = _configProvider.GetLevelConfig(levelNumber);
 
         _mainMenu = Object.Instantiate(_configProvider.GetWindowPrefab<MainMenu>()).Construct

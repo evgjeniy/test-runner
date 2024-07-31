@@ -17,7 +17,8 @@ public class GameStateMachine : StateMachine
             (
                 this,
                 configProvider: services.Resolve<IConfigProvider>(),
-                inputService: services.Resolve<IInputService>()
+                inputService: services.Resolve<IInputService>(),
+                saveService: services.Resolve<ISaveService>()
             ),
             [typeof(GameLoopState)] = new GameLoopState(this, services),
             [typeof(GameExitState)] = new GameExitState()
