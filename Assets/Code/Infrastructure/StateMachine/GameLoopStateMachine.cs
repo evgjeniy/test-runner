@@ -25,7 +25,12 @@ public class GameLoopStateMachine : StateMachine
                 gameLoop: this,
                 configProvider: services.Resolve<IConfigProvider>()
             ),
-            [typeof(GameWinState)] = new GameWinState(gameLoop: this),
+            [typeof(GameWinState)] = new GameWinState
+            (
+                gameLoop: this,
+                configProvider: services.Resolve<IConfigProvider>(),
+                saveService: services.Resolve<ISaveService>()
+            ),
             [typeof(GameLoopExitState)] = new GameLoopExitState(gameStateMachine)
         };
     }

@@ -24,3 +24,47 @@ MonoBehaviour:
     - <Color>k__BackingField: {r: 0, g: 1, b: 0, a: 1}
       <Amount>k__BackingField: 6
       <Collect>k__BackingField: 3
+  - maxStackAmount: 13
+    colorsToComplete:
+    - <Color>k__BackingField: {r: 1, g: 0, b: 0, a: 1}
+      <Amount>k__BackingField: 10
+      <Collect>k__BackingField: 5
+    - <Color>k__BackingField: {r: 0, g: 0, b: 1, a: 1}
+      <Amount>k__BackingField: 15
+      <Collect>k__BackingField: 5
+    - <Color>k__BackingField: {r: 0, g: 1, b: 0, a: 1}
+      <Amount>k__BackingField: 6
+      <Collect>k__BackingField: 3
+  - maxStackAmount: 12
+    colorsToComplete:
+    - <Color>k__BackingField: {r: 1, g: 0, b: 0, a: 1}
+      <Amount>k__BackingField: 10
+      <Collect>k__BackingField: 5
+    - <Color>k__BackingField: {r: 0, g: 0, b: 1, a: 1}
+      <Amount>k__BackingField: 15
+      <Collect>k__BackingField: 5
+    - <Color>k__BackingField: {r: 0, g: 1, b: 0, a: 1}
+      <Amount>k__BackingField: 6
+      <Collect>k__BackingField: 3
+  - maxStackAmount: 11
+    colorsToComplete:
+    - <Color>k__BackingField: {r: 1, g: 0, b: 0, a: 1}
+      <Amount>k__BackingField: 10
+      <Collect>k__BackingField: 5
+    - <Color>k__BackingField: {r: 0, g: 0, b: 1, a: 1}
+      <Amount>k__BackingField: 15
+      <Collect>k__BackingField: 5
+    - <Color>k__BackingField: {r: 0, g: 1, b: 0, a: 1}
+      <Amount>k__BackingField: 6
+      <Collect>k__BackingField: 3
+  - maxStackAmount: 10
+    colorsToComplete:
+    - <Color>k__BackingField: {r: 1, g: 0, b: 0, a: 1}
+      <Amount>k__BackingField: 10
+      <Collect>k__BackingField: 5
+    - <Color>k__BackingField: {r: 0, g: 0, b: 1, a: 1}
+      <Amount>k__BackingField: 15
+      <Collect>k__BackingField: 5
+    - <Color>k__BackingField: {r: 0, g: 1, b: 0, a: 1}
+      <Amount>k__BackingField: 6
+      <Collect>k__BackingField: 3

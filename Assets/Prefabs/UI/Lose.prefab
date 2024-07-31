@@ -306,8 +306,13 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3441562475107749095, guid: d8eaba58d9e454056a88c211c0ccf93b,
         type: 3}
+      propertyPath: m_text
+      value: GAME LOSE
+      objectReference: {fileID: 0}
+    - target: {fileID: 3441562475107749095, guid: d8eaba58d9e454056a88c211c0ccf93b,
+        type: 3}
       propertyPath: m_fontSize
-      value: 136.1
+      value: 150
       objectReference: {fileID: 0}
     - target: {fileID: 3441562475107749095, guid: d8eaba58d9e454056a88c211c0ccf93b,
         type: 3}

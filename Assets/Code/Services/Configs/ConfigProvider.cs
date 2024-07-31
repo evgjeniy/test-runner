@@ -5,18 +5,15 @@ using UnityEngine;
 
 public class ConfigProvider : IConfigProvider
 {
-    private const string LevelConfigsPath = "Levels";
-    private const string WindowConfigsPath = "Windows";
-    private const string PlayerConfigPath = "PlayerConfig";
     private readonly List<LevelConfig> _levelConfigs;
     private readonly Dictionary<Type, Window> _windowConfigs;
     private readonly PlayerConfig _playerConfig;
 
     public ConfigProvider()
     {
-        _playerConfig = Resources.Load<PlayerConfig>(PlayerConfigPath);
-        _levelConfigs = Resources.Load<LevelConfigs>(LevelConfigsPath).Configs.ToList();
-        _windowConfigs = Resources.Load<WindowConfigs>(WindowConfigsPath).Prefabs.ToDictionary(x => x.GetType());
+        _playerConfig = Resources.Load<PlayerConfig>(Const.Resources.PlayerConfig);
+        _levelConfigs = Resources.Load<LevelConfigs>(Const.Resources.LevelConfigs).Configs.ToList();
+        _windowConfigs = Resources.Load<WindowConfigs>(Const.Resources.WindowConfigs).Prefabs.ToDictionary(x => x.GetType());
     }
 
     public PlayerConfig GetPlayerConfig() => _playerConfig;
