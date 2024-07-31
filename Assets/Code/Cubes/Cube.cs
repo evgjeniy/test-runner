@@ -1,11 +1,11 @@
-﻿using System;
-using UnityEngine;
-using Random = UnityEngine.Random;
+﻿using UnityEngine;
 
 [RequireComponent(typeof(Collider))]
 [RequireComponent(typeof(MeshRenderer))]
 public class Cube : MonoBehaviour
 {
+    [SerializeField] private Color colorA = Color.red;
+    
     private Material _material;
 
     public Color Color
@@ -14,12 +14,12 @@ public class Cube : MonoBehaviour
         set => _material.color = value;
     }
 
-    private void Awake() => Construct(Random.Range(0, 3) switch
+    private void Awake() => Construct(colorA/*Random.Range(0, 3) switch
     {
         0 => Color.red,
         1 => Color.blue,
         _ => Color.green
-    });
+    }*/);
 
     public void Construct(Color color)
     {
@@ -32,6 +32,6 @@ public class Cube : MonoBehaviour
         if (!other.TryGetComponent(out Player player))
             return;
 
-        player.Inventory.Collect(this);
+        player.Stack.Collect(this);
     }
 }

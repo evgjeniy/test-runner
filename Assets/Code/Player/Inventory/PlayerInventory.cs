@@ -1,46 +1,30 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class PlayerInventory : IInventory
 {
-    private readonly LevelConfig _levelConfig;
-    private readonly Transform _cubeStackRoot;
-    private readonly List<Cube> _cubes = new(capacity: 16);
+    private readonly IStack _stack;
+    private readonly GameLoopStateMachine _gameLoop;
+    private readonly Dictionary<ColorTaskData, int> _needToCollectColors;
+    private readonly Dictionary<ColorTaskData, int> _collectedColors;
 
-    public IReadOnlyList<Cube> Cubes => _cubes;
-
-    public PlayerInventory(LevelConfig levelConfig, Transform cubeStackRoot)
+    public PlayerInventory(LevelConfig config, IStack stack, GameLoopStateMachine gameLoop)
     {
-        _levelConfig = levelConfig;
-        _cubeStackRoot = cubeStackRoot;
+        _stack = stack;
+        _gameLoop = gameLoop;
+        _needToCollectColors = config.ColorsToComplete.ToDictionary(task => task, task => task.Amount);
+        _collectedColors = config.ColorsToComplete.ToDictionary(task => task, _ => 0);
     }
 
-    public void Collect(Cube cube)
+    public void Enable() => _stack.Collected += CollectCubes;
+    public void Disable() => _stack.Collected -= CollectCubes;
+
+    private void CollectCubes(ColorTaskData task, int amount)
     {
-        if (_cubes.Count == _levelConfig.MaxStackAmount)
-        {
-            Object.Destroy(cube.gameObject);
-        }
-        else
-        {
-            _cubes.Add(cube);
-            Services.All.Resolve<ILogService>().Log($"Add {cube.Color}", this);
+        _collectedColors[task] = Mathf.Clamp(_collectedColors[task] + amount, 0, _needToCollectColors[task]);
 
-            _cubeStackRoot.position += Vector3.up;
-            cube.transform.parent = _cubeStackRoot;
-            cube.transform.localPosition = -Vector3.up * _cubes.Count;
-        }
-    }
-
-    public void DestroyLast()
-    {
-        if (_cubes.Count == 0) return;
-        
-        var cubeToDestroy = _cubes[^1];
-
-        _cubes.Remove(cubeToDestroy);
-        Object.Destroy(cubeToDestroy.gameObject);
-
-        _cubeStackRoot.position -= Vector3.up;
+        if (_collectedColors.All(pair => pair.Value == _needToCollectColors[pair.Key]))
+            _gameLoop.Enter<GameWinState>();
     }
 }

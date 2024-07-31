@@ -7,7 +7,9 @@ public class StandaloneInputService : IInputService
     
     public void HandleSwipe()
     {
-        var swipeDirection = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
+        var horizontal = Input.GetKeyDown(KeyCode.LeftArrow) ? -1 : Input.GetKeyDown(KeyCode.RightArrow) ? 1 : 0;
+        var vertical = Input.GetKeyDown(KeyCode.DownArrow) ? -1 : Input.GetKeyDown(KeyCode.UpArrow) ? 1 : 0;
+        var swipeDirection = new Vector2(horizontal, vertical);
         
         if (Mathf.Abs(swipeDirection.x) > Mathf.Abs(swipeDirection.y))
         {

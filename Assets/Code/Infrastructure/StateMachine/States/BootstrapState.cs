@@ -27,7 +27,14 @@ public class BootstrapState : IState
         _services.Register<ISaveService>(new CashedSaveService(new PlayerPrefsSaveService(serializer)));
 
         var configProvider = _services.Register<IConfigProvider>(new ConfigProvider());
-        _services.Register<IInputService>(new TouchInputService(configProvider));
+        _services.Register<IInputService>
+        (
+#if UNITY_EDITOR
+            new StandaloneInputService()
+#else
+            new TouchInputService(configProvider)
+#endif
+        );
     }
 
     public void Enter()
