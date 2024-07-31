@@ -2,7 +2,7 @@
 
 public interface IStack : IObservable<IStack>
 {
-    event System.Action<ColorTaskData, int> Collected;
+    event System.Action<ColorTaskConfig, int> Collected;
     
     IStack IObservable<IStack>.Value => this;
     

@@ -10,7 +10,7 @@ public class PlayerStack : IStack
 
     public IReadOnlyList<Cube> Cubes => _cubes;
     public event System.Action<IStack> Changed = _ => { };
-    public event System.Action<ColorTaskData, int> Collected = (_, _) => { }; 
+    public event System.Action<ColorTaskConfig, int> Collected = (_, _) => { }; 
 
     public PlayerStack(LevelConfig levelConfig, Transform cubeStackRoot)
     {

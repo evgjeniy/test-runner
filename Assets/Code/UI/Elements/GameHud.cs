@@ -10,7 +10,7 @@ public class GameHud : Window
 
     [Header("Color Tasks")]
     [SerializeField] private Transform colorTasksRoot;
-    [SerializeField] private ColorTask colorTaskPrefab;
+    [SerializeField] private ColorTaskView colorTaskViewPrefab;
 
     [Header("Stack")]
     [SerializeField] private Slider stackSlider;
@@ -19,7 +19,7 @@ public class GameHud : Window
     [SerializeField] private VerticalLayoutGroup stackCubesRoot;
     [SerializeField] private GameObject linePrefab;
 
-    private readonly Dictionary<ColorTaskData, ColorTask> _colorTasks = new();
+    private readonly Dictionary<ColorTaskConfig, ColorTaskView> _colorTasks = new();
 
     public GameHud Construct(LevelConfig config, UnityAction onPause)
     {
@@ -35,7 +35,7 @@ public class GameHud : Window
     {
         foreach (var colorPurposeData in config.ColorsToComplete)
         {
-            var colorTask = Instantiate(colorTaskPrefab, colorTasksRoot).Construct(colorPurposeData);
+            var colorTask = Instantiate(colorTaskViewPrefab, colorTasksRoot).Construct(colorPurposeData);
             _colorTasks.TryAdd(colorPurposeData, colorTask);
         }
     }

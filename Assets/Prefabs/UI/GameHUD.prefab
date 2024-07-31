@@ -1227,7 +1227,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pauseButton: {fileID: 6952831156828690996}
   colorTasksRoot: {fileID: 7554819354125474696}
-  colorTaskPrefab: {fileID: 721325730737477380, guid: 2a8d266b00bf9a6428064d1371a11bf6,
+  colorTaskViewPrefab: {fileID: 721325730737477380, guid: 2a8d266b00bf9a6428064d1371a11bf6,
     type: 3}
   stackSlider: {fileID: 6206879345492685906}
   maxAmountText: {fileID: 2119909887960890773}
