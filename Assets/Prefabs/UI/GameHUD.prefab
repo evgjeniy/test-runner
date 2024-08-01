@@ -34,8 +34,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 112.5, y: -150}
-  m_SizeDelta: {x: -275, y: 0}
+  m_AnchoredPosition: {x: 137.5, y: -150}
+  m_SizeDelta: {x: -325, y: 0}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &7606412279241369644
 MonoBehaviour:
@@ -398,7 +398,7 @@ MonoBehaviour:
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
+  m_Transition: 0
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
@@ -418,7 +418,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 1805454405910695348}
   m_FillRect: {fileID: 8607677560606503171}
   m_HandleRect: {fileID: 2848470685415187438}
@@ -432,7 +432,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 2711619215344612025}
         m_TargetAssemblyTypeName: GameHud, Assembly-CSharp
-        m_MethodName: OnSliderValueChanged
+        m_MethodName: UpdateSliderValueText
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

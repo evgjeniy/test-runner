@@ -33,6 +33,9 @@ public class GameLoopState : IPayloadState<GameLoopState.Payload>
         );
 
         _gameLoopStateMachine.SetData(payload.LevelConfig, payload.Player);
+        _gameLoopStateMachine.Player.Stack.Changed += _gameHud.UpdateStackView;
+        _gameLoopStateMachine.Player.Inventory.ColorCollected += _gameHud.UpdateColorTaskView;
+        
         _gameLoopStateMachine.Enter<GamePlayState>();
     }
 
@@ -43,6 +46,9 @@ public class GameLoopState : IPayloadState<GameLoopState.Payload>
 
     public void Exit()
     {
+        _gameLoopStateMachine.Player.Stack.Changed -= _gameHud.UpdateStackView;
+        _gameLoopStateMachine.Player.Inventory.ColorCollected -= _gameHud.UpdateColorTaskView;
+        
         if (_gameHud != null)
             Object.Destroy(_gameHud.gameObject);
     }

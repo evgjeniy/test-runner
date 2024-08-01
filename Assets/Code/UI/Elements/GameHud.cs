@@ -29,7 +29,9 @@ public class GameHud : Window
         return this;
     }
 
-    public void OnSliderValueChanged(float value) => currentAmountText.text = $"{value}";
+    public void UpdateSliderValueText(float value) => currentAmountText.text = $"{value}";
+    public void UpdateStackView(IStack stack) => stackSlider.value = stack.Cubes.Count;
+    public void UpdateColorTaskView(ColorTaskConfig colorTask, int collected, int needed) => _colorTasks[colorTask].UpdateView(collected, needed);
 
     private void CreateColorTasks(LevelConfig config)
     {
