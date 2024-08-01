@@ -7,28 +7,30 @@ public class PlayerInventory : IInventory
 {
     private readonly IStack _stack;
     private readonly GameLoopStateMachine _gameLoop;
-    private readonly Dictionary<ColorTaskConfig, int> _needToCollectColors;
-    private readonly Dictionary<ColorTaskConfig, int> _collectedColors;
+    private readonly List<ColorTaskData> _colorsData;
 
-    public event Action<ColorTaskConfig, int, int> ColorCollected = (_, _, _) => {};
+    public event Action<ColorTaskData> ColorCollected = _ => {};
+
+    public List<ColorTaskData> ColorsData => _colorsData;
 
     public PlayerInventory(LevelConfig config, IStack stack, GameLoopStateMachine gameLoop)
     {
         _stack = stack;
         _gameLoop = gameLoop;
-        _needToCollectColors = config.ColorsToComplete.ToDictionary(task => task, task => task.Amount);
-        _collectedColors = config.ColorsToComplete.ToDictionary(task => task, _ => 0);
+        _colorsData = config.ColorsToComplete.Select(task => new ColorTaskData(task)).ToList();
     }
 
     public void Enable() => _stack.Collected += CollectCubes;
     public void Disable() => _stack.Collected -= CollectCubes;
 
-    private void CollectCubes(ColorTaskConfig task, int amount)
+    private void CollectCubes(ColorTaskConfig taskConfig, int amount)
     {
-        _collectedColors[task] = Mathf.Clamp(_collectedColors[task] + amount, 0, _needToCollectColors[task]);
-        ColorCollected(task, _collectedColors[task], _needToCollectColors[task]);
+        var colorData = _colorsData.Find(data => data.Config == taskConfig);
 
-        if (_collectedColors.All(pair => pair.Value == _needToCollectColors[pair.Key]))
+        colorData.Collected = Mathf.Clamp(colorData.Collected + amount, 0, colorData.Config.Amount);
+        ColorCollected(colorData);
+
+        if (_colorsData.All(data => data.IsCollected))
             _gameLoop.Enter<GameWinState>();
     }
 }

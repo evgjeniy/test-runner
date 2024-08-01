@@ -26,3 +26,13 @@ public class ColorTaskConfig
     [field: SerializeField] public int Amount { get; private set; }
     [field: SerializeField] public int Collect { get; private set; }
 }
+
+public class ColorTaskData // Model
+{
+    public ColorTaskConfig Config { get; private set; }
+    public int Collected { get; set; }
+    public int Required => Config.Amount;
+    public bool IsCollected => Collected == Config.Amount;
+
+    public ColorTaskData(ColorTaskConfig colorTask) => Config = colorTask;
+}

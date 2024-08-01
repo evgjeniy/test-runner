@@ -1,3 +1,5 @@
+using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
@@ -5,24 +7,44 @@ public class CubesPattern : Pattern
 {
     [SerializeField] private Vector3[] spawnPoints;
     [SerializeField] private Cube prefab;
+    [SerializeField] private float seconds = 3.0f; // TODO : Remove (test)
 
-    private void Start()
+    private IEnumerator Start()
     {
-        /*var player = Services.All.Resolve<GameLoopStateMachine>().Player;
-        var cubesInStack = player.Stack.Cubes.ToDictionary(x => x.Color, _ => 0);
-        foreach (var cube in player.Stack.Cubes)
-            cubesInStack[cube.Color]++;*/
+        yield return new WaitForSeconds(seconds);
+        
+        var gameLoop = Services.All.Resolve<GameLoopStateMachine>();
+        var requiredColors = GetRequiredColors(gameLoop);
+        var otherColors = gameLoop.Config.ColorsToComplete.Except(requiredColors).ToList();
 
-        for (int i = 0; i < spawnPoints.Length; i++)
+        for (var i = 0; i < spawnPoints.Length; i++)
         {
             var cube = Instantiate(prefab, transform.position + spawnPoints[i], Quaternion.identity, transform);
-            cube.Construct(Random.Range(0, 3) switch
+            if (requiredColors.Count == 0)
             {
-                0 => Color.red,
-                1 => Color.green,
-                _ => Color.blue
-            });
+                cube.Construct(otherColors.Random());
+            }
+            else if (otherColors.Count == 0)
+            {
+                cube.Construct(requiredColors.Random());
+            }
+            else
+            {
+                var chance = Mathf.Clamp01(1 - i / (spawnPoints.Length - 1.0f));
+                cube.Construct(Random.value > chance ? otherColors.Random() : requiredColors.Random());
+            }
         }
+    }
+
+    private static List<ColorTaskConfig> GetRequiredColors(GameLoopStateMachine gameLoop)
+    {
+        return gameLoop.Player.Stack.Cubes.Join
+        (
+            gameLoop.Player.Inventory.ColorsData.Where(data => !data.IsCollected),
+            cube => cube.ColorTask,
+            data => data.Config,
+            (_, data) => data.Config
+        ).ToList();
     }
 
     private void OnDrawGizmos()

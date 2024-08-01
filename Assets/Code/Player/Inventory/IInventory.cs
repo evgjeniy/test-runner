@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
 
 public interface IInventory
 {
-    event Action<ColorTaskConfig, int, int> ColorCollected;
+    event Action<ColorTaskData> ColorCollected;
+    List<ColorTaskData> ColorsData { get; }
 
     void Enable();
     void Disable();

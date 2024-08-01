@@ -17,10 +17,10 @@ public class ColorTaskView : MonoBehaviour
         return this;
     }
 
-    public void UpdateView(int collected, int needed)
+    public void UpdateView(int collected, int required)
     { 
-        collectedIcon.gameObject.SetActive(needed == collected);
-        requiredCubesAmount.gameObject.SetActive(needed != collected);
-        requiredCubesAmount.text = $"{needed - collected}";
+        collectedIcon.gameObject.SetActive(required == collected);
+        requiredCubesAmount.gameObject.SetActive(required != collected);
+        requiredCubesAmount.text = $"{required - collected}";
     }
 }

@@ -31,14 +31,14 @@ public class GameHud : Window
 
     public void UpdateSliderValueText(float value) => currentAmountText.text = $"{value}";
     public void UpdateStackView(IStack stack) => stackSlider.value = stack.Cubes.Count;
-    public void UpdateColorTaskView(ColorTaskConfig colorTask, int collected, int needed) => _colorTasks[colorTask].UpdateView(collected, needed);
+    public void UpdateColorTaskView(ColorTaskData colorTask) => _colorTasks[colorTask.Config].UpdateView(colorTask.Collected, colorTask.Required);
 
     private void CreateColorTasks(LevelConfig config)
     {
-        foreach (var colorPurposeData in config.ColorsToComplete)
+        foreach (var colorTaskConfig in config.ColorsToComplete)
         {
-            var colorTask = Instantiate(colorTaskViewPrefab, colorTasksRoot).Construct(colorPurposeData);
-            _colorTasks.TryAdd(colorPurposeData, colorTask);
+            var colorTask = Instantiate(colorTaskViewPrefab, colorTasksRoot).Construct(colorTaskConfig);
+            _colorTasks.TryAdd(colorTaskConfig, colorTask);
         }
     }
 

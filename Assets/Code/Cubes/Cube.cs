@@ -4,18 +4,15 @@
 [RequireComponent(typeof(MeshRenderer))]
 public class Cube : MonoBehaviour
 {
-    private Material _material;
+    public ColorTaskConfig ColorTask { get; private set; }
+    public Color Color => ColorTask.Color;
 
-    public Color Color
+    public void Construct(ColorTaskConfig colorTask)
     {
-        get => _material.color;
-        set => _material.color = value;
-    }
+        ColorTask = colorTask;
 
-    public void Construct(Color color)
-    {
         var meshRenderer = GetComponent<MeshRenderer>();
-        meshRenderer.material = _material = new Material(meshRenderer.material) { color = color };
+        meshRenderer.material = new Material(meshRenderer.material) { color = colorTask.Color };
     }
 
     private void OnTriggerEnter(Collider other)
