@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Config/Levels", fileName = "Levels")]
+[CreateAssetMenu(menuName = "Config/" + nameof(LevelConfigs), fileName = nameof(LevelConfigs))]
 public class LevelConfigs : ScriptableObject
 {
     [SerializeField] private List<LevelConfig> configs;

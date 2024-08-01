@@ -4,8 +4,6 @@
 [RequireComponent(typeof(MeshRenderer))]
 public class Cube : MonoBehaviour
 {
-    [SerializeField] private Color colorA = Color.red;
-    
     private Material _material;
 
     public Color Color
@@ -13,13 +11,6 @@ public class Cube : MonoBehaviour
         get => _material.color;
         set => _material.color = value;
     }
-
-    private void Awake() => Construct(colorA/*Random.Range(0, 3) switch
-    {
-        0 => Color.red,
-        1 => Color.blue,
-        _ => Color.green
-    }*/);
 
     public void Construct(Color color)
     {

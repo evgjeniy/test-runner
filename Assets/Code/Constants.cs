@@ -27,5 +27,6 @@
         public const string LevelConfigs = "Levels";
         public const string WindowConfigs = "Windows";
         public const string PlayerConfig = "PlayerConfig";
+        public const string SpawnerConfig = "SpawnerConfig";
     }
 }

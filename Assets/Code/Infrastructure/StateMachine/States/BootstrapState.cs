@@ -35,6 +35,8 @@ public class BootstrapState : IState
             new TouchInputService(configProvider)
 #endif
         );
+
+        _services.Register<ISpawner>(new Spawner(configProvider));
     }
 
     public void Enter()

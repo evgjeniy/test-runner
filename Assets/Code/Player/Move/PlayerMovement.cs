@@ -29,6 +29,7 @@ public class PlayerMovement : IMovement
         _tween = _transform.DOMoveX(xPosition, 0.5f)
             .OnComplete(() => _transform.position = new Vector3(xPosition, 0, _transform.position.z))
             .SetEase(Ease.OutExpo)
+            .SetLink(_transform.gameObject)
             .Play();
     }
 }

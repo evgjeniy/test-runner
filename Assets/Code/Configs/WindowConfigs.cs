@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Config/Windows", fileName = "Windows")]
+[CreateAssetMenu(menuName = "Config/" + nameof(WindowConfigs), fileName = nameof(WindowConfigs))]
 public class WindowConfigs : ScriptableObject
 {
     [SerializeField] private List<Window> prefabs;

@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-[CreateAssetMenu(menuName = "Config/PlayerConfig", fileName = "PlayerConfig")]
+[CreateAssetMenu(menuName = "Config/" + nameof(PlayerConfig), fileName = nameof(PlayerConfig))]
 public class PlayerConfig : ScriptableObject
 {
     [SerializeField] private Player playerPrefab;
