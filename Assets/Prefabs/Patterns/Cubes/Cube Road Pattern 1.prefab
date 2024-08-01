@@ -61,7 +61,7 @@ PrefabInstance:
     - target: {fileID: 8175694888280150594, guid: f8c763fd9f734b245b28c00f9f6e6fb0,
         type: 3}
       propertyPath: m_Name
-      value: Cube Road Patter
+      value: Cube Road Pattern 1
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 161283328249165010, guid: f8c763fd9f734b245b28c00f9f6e6fb0, type: 3}
@@ -93,9 +93,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnPoints:
-  - {x: 0, y: 0, z: 0.5}
   - {x: 1, y: 0, z: 0.5}
-  - {x: 1, y: 0, z: 1.5}
-  - {x: -1, y: 0, z: 4.5}
-  - {x: 0, y: 0, z: 4.5}
+  - {x: 0, y: 0, z: 0.5}
+  - {x: -1, y: 0, z: 0.5}
+  - {x: -1, y: 0, z: 1.5}
+  - {x: -1, y: 0, z: 2.5}
+  - {x: 0, y: 0, z: 2.5}
   prefab: {fileID: 1237009455437118894, guid: 46bfab1e3a1e8dc4fa2f955ebbb0e415, type: 3}

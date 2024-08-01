@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Configs/" + nameof(SpawnerConfig), fileName = nameof(SpawnerConfig))]
+[CreateAssetMenu(menuName = "Config/" + nameof(SpawnerConfig), fileName = nameof(SpawnerConfig))]
 public class SpawnerConfig : ScriptableObject
 {
     [SerializeField] private float destroyDelay = 3.0f;

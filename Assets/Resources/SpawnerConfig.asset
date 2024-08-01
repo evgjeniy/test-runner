@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a01e056f08a4b6fbbfbfb6fbf2ba2e8, type: 3}
+  m_Name: SpawnerConfig
+  m_EditorClassIdentifier: 
+  destroyDelay: 3
+  cubesPatterns:
+  - {fileID: 4466534497169647114, guid: bb7966f7e5364fe46a462aedfdd2ae05, type: 3}
+  - {fileID: 3940771977139088383, guid: 162d2e07e0f41d14a87c94e0e50d94ab, type: 3}
+  - {fileID: 3940771977139088383, guid: ec70784a7504e8549925221b8c5485ad, type: 3}
+  - {fileID: 3940771977139088383, guid: 93efbcee3a109e34bb37e09efc1d6e29, type: 3}
+  obstaclePatterns:
+  - {fileID: 554131564442326179, guid: 18799e17bd80f484f973845f455e9077, type: 3}
+  - {fileID: 6773937626017438282, guid: 096a1b82f094d774d84c965a6b593cd6, type: 3}
+  - {fileID: 6773937626017438282, guid: 85301aeb36db4c74a9f86f74073ea36e, type: 3}
+  - {fileID: 6773937626017438282, guid: 75adf36547aa7d74291064f9ece206f2, type: 3}
