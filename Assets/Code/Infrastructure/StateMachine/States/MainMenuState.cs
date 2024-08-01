@@ -18,8 +18,7 @@ public class MainMenuState : IState
 
     public void Enter()
     {
-        var playerPrefab = _configProvider.GetPlayerConfig().Prefab;
-        var player = Object.Instantiate(playerPrefab);
+        var player = Object.Instantiate(_configProvider.GetPlayerConfig().Prefab);
 
         CreateMainMenu(player);
         Camera.main.GetComponent<CameraFollow>().SetTarget(player.transform);

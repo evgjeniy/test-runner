@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2840646540087868951}
   - component: {fileID: 3513428788452051927}
   - component: {fileID: 8681945122930585481}
-  - component: {fileID: 2583511300043029920}
+  - component: {fileID: 4415911200524631168}
   m_Layer: 0
   m_Name: Empty Road Pattern
   m_TagString: Untagged
@@ -107,7 +107,7 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 3, y: 1, z: 5}
   m_Center: {x: 0, y: 0.5, z: 2.5}
---- !u!114 &2583511300043029920
+--- !u!114 &4415911200524631168
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -116,6 +116,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 8175694888280150594}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d742a8c8c52d4eafa0aaae8d2d41485a, type: 3}
+  m_Script: {fileID: 11500000, guid: 6987f7da13694873a71f3d8c25ab7afe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

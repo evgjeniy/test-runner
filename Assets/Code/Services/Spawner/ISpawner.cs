@@ -1,6 +1,6 @@
 ﻿public interface ISpawner : IService
 {
-    Pattern SpawnNext(Player component);
+    Pattern SpawnNext(Pattern current, Player component);
     void Add(Pattern pattern);
     void Remove(Pattern pattern);
 }

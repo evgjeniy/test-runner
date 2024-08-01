@@ -12,7 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a01e056f08a4b6fbbfbfb6fbf2ba2e8, type: 3}
   m_Name: SpawnerConfig
   m_EditorClassIdentifier: 
-  destroyDelay: 3
+  destroyDelay: 30
+  spawnDistance: 50
+  emptyPattern: {fileID: 4415911200524631168, guid: f8c763fd9f734b245b28c00f9f6e6fb0,
+    type: 3}
   cubesPatterns:
   - {fileID: 4466534497169647114, guid: bb7966f7e5364fe46a462aedfdd2ae05, type: 3}
   - {fileID: 3940771977139088383, guid: 162d2e07e0f41d14a87c94e0e50d94ab, type: 3}

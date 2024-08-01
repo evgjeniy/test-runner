@@ -10,6 +10,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 554131564442326179, guid: 18799e17bd80f484f973845f455e9077,
         type: 3}
+      propertyPath: isImpossible
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 554131564442326179, guid: 18799e17bd80f484f973845f455e9077,
+        type: 3}
       propertyPath: spawnPoints.Array.data[0].z
       value: 4.5
       objectReference: {fileID: 0}
@@ -41,12 +46,12 @@ PrefabInstance:
     - target: {fileID: 554131564442326179, guid: 18799e17bd80f484f973845f455e9077,
         type: 3}
       propertyPath: spawnPoints.Array.data[3].z
-      value: 0.5
+      value: 2.5
       objectReference: {fileID: 0}
     - target: {fileID: 554131564442326179, guid: 18799e17bd80f484f973845f455e9077,
         type: 3}
       propertyPath: spawnPoints.Array.data[4].z
-      value: 0.5
+      value: 2.5
       objectReference: {fileID: 0}
     - target: {fileID: 998457140285797971, guid: 18799e17bd80f484f973845f455e9077,
         type: 3}

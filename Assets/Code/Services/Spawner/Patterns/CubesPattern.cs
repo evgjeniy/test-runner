@@ -7,16 +7,19 @@ public class CubesPattern : Pattern
 {
     [SerializeField] private Vector3[] spawnPoints;
     [SerializeField] private Cube prefab;
-    [SerializeField] private float seconds = 3.0f; // TODO : Remove (test)
 
-    private IEnumerator Start()
+    private void Start()
     {
-        yield return new WaitForSeconds(seconds);
-        
         var gameLoop = Services.All.Resolve<GameLoopStateMachine>();
-        var requiredColors = GetRequiredColors(gameLoop);
+
+        var requiredColors = GetRequiredColors(gameLoop.Player);
         var otherColors = gameLoop.Config.ColorsToComplete.Except(requiredColors).ToList();
 
+        SpawnCubes(requiredColors, otherColors);
+    }
+
+    private void SpawnCubes(List<ColorTaskConfig> requiredColors, List<ColorTaskConfig> otherColors)
+    {
         for (var i = 0; i < spawnPoints.Length; i++)
         {
             var cube = Instantiate(prefab, transform.position + spawnPoints[i], Quaternion.identity, transform);
@@ -36,16 +39,13 @@ public class CubesPattern : Pattern
         }
     }
 
-    private static List<ColorTaskConfig> GetRequiredColors(GameLoopStateMachine gameLoop)
-    {
-        return gameLoop.Player.Stack.Cubes.Join
-        (
-            gameLoop.Player.Inventory.ColorsData.Where(data => !data.IsCollected),
-            cube => cube.ColorTask,
-            data => data.Config,
-            (_, data) => data.Config
-        ).ToList();
-    }
+    private static List<ColorTaskConfig> GetRequiredColors(Player player) => player.Stack.Cubes.Join
+    (
+        player.Inventory.ColorsData.Where(data => !data.IsCollected),
+        cube => cube.ColorTask,
+        data => data.Config,
+        (_, data) => data.Config
+    ).ToList();
 
     private void OnDrawGizmos()
     {

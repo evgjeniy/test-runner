@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class Spawner : ISpawner
@@ -12,9 +13,26 @@ public class Spawner : ISpawner
         _spawnedPatterns = new List<Pattern>(capacity: 16);
     }
 
-    public Pattern SpawnNext(Player component)
+    public Pattern SpawnNext(Pattern current, Player player) => Object.Instantiate
+    (
+        original: GetPatternPrefab(player),
+        position: current.transform.position + new Vector3(0, 0, _config.SpawnDistance),
+        rotation: Quaternion.identity
+    );
+
+    private Pattern GetPatternPrefab(Player player)
     {
-        return null;
+        if (_spawnedPatterns.Count != 0 && _spawnedPatterns[^1] is not EmptyPattern)
+            return _config.EmptyPattern;
+        
+        if (Random.Range(0, 2) == 0)
+            return _config.CubesPatterns.Random();
+
+        var obstaclesCount = _spawnedPatterns.Count(pattern => pattern is ObstaclePattern);
+
+        return player.Health.Current - obstaclesCount > 0
+            ? _config.ObstaclePatterns.Random()
+            : _config.ObstaclePatterns.Where(pattern => !pattern.IsImpossible).Random();
     }
 
     public void Add(Pattern pattern)
